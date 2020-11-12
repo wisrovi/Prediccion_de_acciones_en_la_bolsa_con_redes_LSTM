@@ -23,7 +23,7 @@ def graficar_predicciones(real, prediccion):
 # Lectura de los datos
 #
 dataset = pd.read_csv('AAPL_2006-01-01_to_2018-01-01.csv', index_col='Date', parse_dates=['Date'])
-dataset.head()
+print(dataset.head())
 
 #
 # Sets de entrenamiento y validación 
@@ -32,6 +32,8 @@ dataset.head()
 #
 set_entrenamiento = dataset[:'2016'].iloc[:,1:2]
 set_validacion = dataset['2017':].iloc[:,1:2]
+print(len(set_entrenamiento), len(set_validacion))
+
 
 set_entrenamiento['High'].plot(legend=True)
 set_validacion['High'].plot(legend=True)
@@ -56,6 +58,8 @@ for i in range(time_step,m):
     # Y: el siguiente dato
     Y_train.append(set_entrenamiento_escalado[i,0])
 X_train, Y_train = np.array(X_train), np.array(Y_train)
+
+print(len(X_train), len(Y_train))
 
 # Reshape X_train para que se ajuste al modelo en Keras
 X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 1))
